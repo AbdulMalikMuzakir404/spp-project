@@ -14,7 +14,7 @@ class detailCetakController extends Controller
         $transaksi = pembayaran::orderBy('name')
         ->join('spps', 'pembayarans.spp_id', 'spps.id')
         ->join('users', 'pembayarans.nisn', 'users.nisn')
-        ->where('thn_dibayar', $tahun)
+        ->where('thn_dibayar', date('Y'))
         ->where('pembayarans.nisn', $nisn)
         ->paginate(12);
         Session::put('halaman_url', request()->fullUrl());

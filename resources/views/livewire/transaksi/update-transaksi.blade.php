@@ -144,7 +144,7 @@
                             <div class="col-sm-9 text-secondary">
                                 <input type="text" wire:model.lazy="jumlah_bayar_update"
                                     class="form-control @error('jumlah_bayar_update') is-invalid @enderror"
-                                    placeholder="Jumlah Bayar Update" required>
+                                    placeholder="Jumlah Bayar Update">
                                 @error('jumlah_bayar_update')
                                     <span class="invalid-feedback">
                                         <strong>{{ $message }}</strong>

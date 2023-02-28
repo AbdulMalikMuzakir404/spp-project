@@ -19,7 +19,7 @@ class adminCreateLaporanController extends Controller
 
         $transaksi = pembayaran::join('spps', 'pembayarans.spp_id', 'spps.id')
         ->join('users', 'pembayarans.nisn', 'users.nisn')
-        ->where('thn_dibayar', $exp[0])
+        ->where('pembayarans.thn_dibayar', $exp[0])
         ->where('pembayarans.nisn', $nisn)->get();
 
         // view()->share('transaksi', $transaksi);
@@ -27,6 +27,7 @@ class adminCreateLaporanController extends Controller
             'transaksi' => $transaksi
         ]);
         $pdf->set_option('dpi', 100);
+        $pdf->stream();
         return $pdf->download('transaksi.pdf');
 
         // return view('PDF.admin-create-laporan', compact('transaksi'));

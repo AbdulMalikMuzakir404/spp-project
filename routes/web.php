@@ -71,6 +71,5 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/home/bayar', [bayarController::class, 'showBayar'])->name('dataBayar')->middleware('siswa');
         Route::get('/home/bayar-detail/{id}', [bayarController::class, 'bayarDetail'])->name('dataBayarDetail')->middleware('siswa');
-        Route::post('/home/bayar-metode-pembayaran/{id}', [bayarController::class, 'metodeBayar'])->name('dataMetodeBayar')->middleware('siswa');
     });
 });

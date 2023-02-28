@@ -98,10 +98,11 @@
                             <div class="col-sm-3">
                                 <h6 class="mb-0">Phone</h6>
                             </div>
-                            <div class="col-sm-9 text-secondary">
+                            <div class="col-sm-9 text-secondary input-group">
+                                <span class="input-group-text" id="basic-addon3">+62</span>
                                 <input type="text" wire:model.lazy="no_telp"
                                     class="form-control @error('no_telp') is-invalid @enderror"
-                                    placeholder="+62 xxx xxxx xxxx" required>
+                                    placeholder=" xxx xxxx xxxx" required>
                                 @error('no_telp')
                                     <span class="invalid-feedback">
                                         <strong>{{ $message }}</strong>

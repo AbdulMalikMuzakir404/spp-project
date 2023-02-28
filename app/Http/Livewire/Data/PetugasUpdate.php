@@ -38,7 +38,7 @@ class PetugasUpdate extends Component
         $this->email = $data['email'];
         $this->name = $data['name'];
         $this->username = $data['username'];
-        $this->password = 'Data Encrypt';
+        $this->password = $data['password_show'];
     }
 
     public function updateDataPetugas()
@@ -46,12 +46,15 @@ class PetugasUpdate extends Component
         $this->validate([
             'email' => 'required|email|string|min:5|max:50',
             'username' => 'required|min:5|string|max:50',
-            'name' => 'required|min:5|max:50|string'
+            'name' => 'required|min:5|max:50|string',
+            'password' => 'required|min:8|max:70|string'
         ]);
 
         User::find($this->petugasId)->update([
             'email' => $this->email,
             'name' => $this->name,
+            'password' => Hash::make($this->password),
+            'password_show' => $this->password,
             'username' => $this->username
         ]);
 

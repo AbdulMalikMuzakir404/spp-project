@@ -168,12 +168,9 @@
                             $arry = [];
                                 $no = 0;
                             @endphp
-                            @foreach ($data_spp as $dataSpp)
-                                @php
-                                    $no++;
-                                @endphp
+                            @foreach ($data_spp as $key => $dataSpp)
                             <tr>
-                              <th scope="row">{{ $no }}</th>
+                              <th scope="row">{{ $key += $data_spp->firstItem() }}</th>
                               <td>{{ $dataSpp->tahun }}</td>
                               <td>{{ $dataSpp->nominal }}</td>
                               <td>{{ $dataSpp->created_at }}</td>
@@ -233,12 +230,9 @@
                             @php
                                 $no = 0;
                             @endphp
-                            @foreach ($data_kelas as $dataKelas)
-                                @php
-                                    $no++;
-                                @endphp
+                            @foreach ($data_kelas as $key => $dataKelas)
                             <tr>
-                              <th scope="row">{{ $no }}</th>
+                              <th scope="row">{{ $key += $data_kelas->firstItem() }}</th>
                               <td>{{ $dataKelas->nama_kelas }}</td>
                               <td>{{ $dataKelas->kopetensi_keahlian }}</td>
                               <td>{{ $dataKelas->created_at }}</td>

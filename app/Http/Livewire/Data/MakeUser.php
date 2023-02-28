@@ -86,13 +86,15 @@ class MakeUser extends Component
 
     public function makeDataSiswa()
     {
+        $this->total_bayar = spp::whereYear('tahun', date('Y'))->sum('nominal');
+
         $this->validate([
             'nisn' => 'required|min:5|max:13|unique:users|string',
             'nis' => 'required|min:5|max:13|unique:users|string',
             'name' => 'required|min:5|max:50|string|unique:users',
             'no_telp' => 'required|min:5|max:20|string',
             'alamat' => 'required|min:5|max:70|string',
-            'ruang_id' => 'required',
+            'ruang_id' => 'required'
         ]);
 
         User::create([
@@ -100,17 +102,15 @@ class MakeUser extends Component
             'nis' => $this->nis,
             'password' => Hash::make($this->nis),
             'name' => $this->name,
-            'no_telp' => $this->no_telp,
+            'no_telp' => '+62 '.$this->no_telp,
             'alamat' => $this->alamat,
             'ruang_id' => $this->ruang_id,
             'level' => 'siswa',
             'total_bayar' => $this->total_bayar
         ]);
 
-        $this->total_bayar = spp::whereYear('tahun', date('Y'))->sum('nominal');
-
         if($this->total_bayar){
-            User::where('level', 'siswa')->update([
+            User::where('nisn', $this->nisn)->where('level', 'siswa')->update([
                 'total_bayar' => $this->total_bayar
             ]);
         }

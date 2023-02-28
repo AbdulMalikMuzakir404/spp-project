@@ -12,7 +12,7 @@ class UpdateTransaksi extends Component
     public $nisn, $name, $tgl_dibayar, $bln_dibayar, $thn_dibayar, $jumlah_bayar, $jumlah_bayar_update, $spp_id, $transaksiId, $bln;
 
     public $isLoading = false;
-    
+
     protected $listeners = [
         'passing-update-data-transaksi' => 'showDataTransaksi',
     ];
@@ -63,7 +63,6 @@ class UpdateTransaksi extends Component
             'tgl_dibayar' => 'required|max:3|string',
             'bln_dibayar' => 'required|max:15|string',
             'thn_dibayar' => 'required|max:5|string',
-            'jumlah_bayar_update' => 'required|min:3|max:40|string',
             'spp_id' => 'required',
         ]);
 
@@ -72,7 +71,7 @@ class UpdateTransaksi extends Component
         {
             $cekNisnAndName = $name['name'];
         }
-        
+
         if($cekNisnAndName !== $this->name) {
             return redirect()->route('dataTransaksi')->with('error', 'nisn and name do not match!');
         }
@@ -117,7 +116,7 @@ class UpdateTransaksi extends Component
         }
 
         $cek = spp::whereMonth('tahun', $this->bln)->whereYear('tahun', $this->thn_dibayar)->get('nominal');
-        
+
         foreach($cek as $data) {
             if(intval($this->jumlah_bayar + $this->jumlah_bayar_update) > intval($data['nominal'])) {
                 $this->clearDataUpdateTransaksi();
@@ -126,7 +125,7 @@ class UpdateTransaksi extends Component
         }
 
         $nama_pengelola = Auth()->user()->name;
-        
+
         pembayaran::find($this->transaksiId)->update([
             'nisn' => $this->nisn,
             'nama_siswa' => $this->name,
@@ -142,7 +141,7 @@ class UpdateTransaksi extends Component
         foreach($total_bayar as $bayar) {
                 $totalBayarUpdate = intval($bayar['total_bayar']) - intval($this->jumlah_bayar_update);
         }
-        
+
         User::where('nisn', $this->nisn)->update([
             'total_bayar' => $totalBayarUpdate
         ]);

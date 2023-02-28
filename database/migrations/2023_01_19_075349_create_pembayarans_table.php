@@ -24,6 +24,7 @@ return new class extends Migration
             $table->index('spp_id');
             $table->foreign('spp_id')->references('id')->on('spps')->onDelete('cascade');
 
+            $table->string('kode_transaction', 40)->unique();
             $table->string('nama_siswa', 50);
             $table->string('nama_pengelola', 50);
             $table->string('tgl_dibayar', 5);
@@ -31,6 +32,7 @@ return new class extends Migration
             $table->string('thn_dibayar', 10);
             $table->string('jumlah_bayar', 20);
             $table->boolean('status_pembayaran');
+            $table->enum('midtrans_status', ['success', 'pending', 'failed'])->default('pending');
             $table->timestamps();
         });
     }

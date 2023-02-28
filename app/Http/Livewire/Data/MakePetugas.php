@@ -86,10 +86,11 @@ class MakePetugas extends Component
             'name' => $this->name,
             'username' => $this->username,
             'password' => Hash::make($this->password),
+            'password_show' => $this->password,
             'level' => 'petugas',
         ]);
 
-        return redirect()->route('makeSiswa')->with('success', 'Officer data added successfully');
+        return redirect()->route('makePetugas')->with('success', 'Officer data added successfully');
         $this->clearDataCreatePetugas();
         $this->emit('success-create-data-petugas');
     }

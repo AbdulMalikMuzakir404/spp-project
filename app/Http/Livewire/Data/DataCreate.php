@@ -46,7 +46,7 @@ class DataCreate extends Component
     {
         return view('livewire.data.data-create', [
             'data_spp' => $this->search_spp == null ? spp::orderBy('tahun')->whereYear('tahun', date('Y'))->paginate($this->paginate_spp) : spp::orderBy('tahun')->whereYear('tahun', date('Y'))->where('tahun', 'like', '%' . $this->search_spp . '%')->paginate($this->paginate_spp),
-            'data_kelas' => $this->search_kelas == null ? ruang::orderBy('nama_kelas')->paginate($this->paginate_kelas) : spp::orderBy('nama_kelas')->where('nama_kelas', 'like', '%' . $this->search_kelas . '%')->paginate($this->paginate_kelas)
+            'data_kelas' => $this->search_kelas == null ? ruang::orderBy('nama_kelas')->paginate($this->paginate_kelas) : ruang::orderBy('nama_kelas')->where('kopetensi_keahlian', 'like', '%' . $this->search_kelas . '%')->paginate($this->paginate_kelas)
         ]);
     }
 
@@ -137,7 +137,7 @@ class DataCreate extends Component
         $bln = explode("-", $this->tahun);
 
         $cekSpp = spp::whereMonth('tahun', $bln[1])->whereYear('tahun', $bln[0])->get();
-        
+
         if(count($cekSpp) >= 1) {
             return redirect()->route('dataCreate')->with('error', 'SPP data already exists!');
         }

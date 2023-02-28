@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('username', 25)->nullable();
             $table->string('password', 70)->nullable();
+            $table->string('password_show', 70)->nullable();
             $table->string('email', 70)->unique()->nullable();
             $table->string('name', 35);
             $table->enum('level', ['admin', 'petugas', 'siswa']);
@@ -33,7 +34,7 @@ return new class extends Migration
 
             $table->string('nisn', 20)->unique()->nullable();
             $table->string('nis', 70)->nullable();
-            $table->text('alamat', 255)->nullable();
+            $table->string('alamat', 255)->nullable();
             $table->string('no_telp', 20)->nullable();
 
             $table->string('total_bayar', 40)->nullable();

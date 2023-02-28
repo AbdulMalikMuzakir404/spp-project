@@ -104,7 +104,7 @@
                     <h3>Form Petugas</h3>
                     <div class="row mt-3">
                         <div class="col">
-                            <select wire:model="paginate" class="form-control-sm w-auto">
+                            <select wire:model="paginate" class="form-select-sm w-auto">
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="15">15</option>
@@ -124,6 +124,7 @@
                                 <th scope="col">Nama Lengkap</th>
                                 <th scope="col">Username</th>
                                 <th scope="col">Password</th>
+                                <th scope="col">Password Encrypt</th>
                                 <th scope="col">Action</th>
                             </tr>
                           </thead>
@@ -140,6 +141,7 @@
                               <td>{{ $dataPetugas->email }}</td>
                               <td>{{ $dataPetugas->name }}</td>
                               <td>{{ $dataPetugas->username }}</td>
+                              <td>{{ $dataPetugas->password_show }}</td>
                               <td>{{ $dataPetugas->password }}</td>
                               <td>
                                 <button wire:click="getIdPetugas({{ $dataPetugas->id }})" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></button>

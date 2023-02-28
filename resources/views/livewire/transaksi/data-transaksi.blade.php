@@ -191,14 +191,14 @@
                     <h3>Table Data Transaksi</h3>
                     <div class="row mt-3">
                         <div class="col">
-                            <select wire:model="paginate" class="form-control-sm w-auto">
+                            <select wire:model="paginate" class="form-select-sm w-auto">
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="15">15</option>
                             </select>
                         </div>
                         <div class="col">
-                            <select wire:model="status_pembayaran" class="form-control-sm w-auto">
+                            <select wire:model="status_pembayaran" class="form-select-sm w-auto">
                                 <option value="1">lunas</option>
                                 <option value="0">belum lunas</option>
                             </select>
@@ -222,7 +222,6 @@
                                 <th scope="col">Jumah Bayar</th>
                                 <th scope="col">Data SPP</th>
                                 <th scope="col">Tunggakan Perbulan</th>
-                                <th scope="col">Tunggakan Pertahun</th>
                                 <th scope="col">Created</th>
                                 <th scope="col">Updated</th>
                                 <th scope="col">Status Pembayaran</th>
@@ -248,7 +247,6 @@
                                     <td>{{ $dataTransaksi->jumlah_bayar }}</td>
                                     <td>{{ $dataTransaksi->tahun . " - Rp." . $dataTransaksi->nominal }}</td>
                                     <td>{{ "Rp." . $dataTransaksi->nominal - $dataTransaksi->jumlah_bayar }}</td>
-                                    <td>{{ "Rp." . $dataTransaksi->total_bayar }}</td>
                                     <td>{{ $dataTransaksi->created_at }}</td>
                                     <td>{{ $dataTransaksi->updated_at }}</td>
                                     @if ($dataTransaksi->status_pembayaran == 1)
@@ -263,9 +261,9 @@
                                         </td>
                                     @endif
                                     <td>
-                                        <button wire:click="updateStatus({{ '\'' . $dataTransaksi->nisn . "-" . $dataTransaksi->tgl_dibayar . "-" . $dataTransaksi->bln_dibayar . "-" . $dataTransaksi->thn_dibayar . '\'' }})"
+                                        {{-- <button wire:click="updateStatus({{ '\'' . $dataTransaksi->nisn . "-" . $dataTransaksi->tgl_dibayar . "-" . $dataTransaksi->bln_dibayar . "-" . $dataTransaksi->thn_dibayar . '\'' }})"
                                             class="btn btn-secondary btn-sm"><i
-                                                class="bi bi-calendar2-check"></i></button>
+                                                class="bi bi-calendar2-check"></i></button> --}}
                                         <button wire:click="getIdTransaksi({{ '\'' . $dataTransaksi->nisn . "-" . $dataTransaksi->tgl_dibayar . "-" . $dataTransaksi->bln_dibayar . "-" . $dataTransaksi->thn_dibayar . '\'' }})"
                                             class="btn btn-primary btn-sm"><i
                                                 class="bi bi-pencil-square"></i></button>

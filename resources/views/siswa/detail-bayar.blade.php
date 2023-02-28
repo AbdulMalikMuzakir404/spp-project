@@ -28,48 +28,54 @@
                 <div class="col-md-4 mb-3">
                     <div class="card">
                         <div class="card-body">
-                            <p>{{ "Rp." . $dataSpp->nominal }}</p>
+                            <p>{{ 'Rp.' . $dataSpp->nominal }}</p>
                             <p>{{ $dataSpp->tahun }}</p>
                             <p>{{ $dataSpp->created_at }}</p>
-                            <form action="{{ route('dataBayarDetail', $dataSpp->id) }}">
-                                <button type="submit" id="pay-button" class="btn btn-primary btn-sm">Checkout</button>
-                            </form>
+                            <button type="button" id="pay-button" class="btn btn-primary">Pay now</button>
                         </div>
                     </div>
                 </div>
             @endforeach
 
         </div>
-        </div>
-    @endsection
+    </div>
+@endsection
+
+
 @push('js')
-<script type="text/javascript"
-        src="https://app.sandbox.midtrans.com/snap/snap.js"
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
         data-client-key="{{ config('midtrans.client_key') }}"></script>
 
-        <script type="text/javascript">
-            // For example trigger on button clicked, or any time you need
-            var payButton = document.getElementById('pay-button');
-            payButton.addEventListener('click', function () {
-              // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
-              window.snap.pay('{{ $snapToken }}', {
-                onSuccess: function(result){
-                  /* You may add your own implementation here */
-                  alert("payment success!"); console.log(result);
+    <script type="text/javascript">
+        // For example trigger on button clicked, or any time you need
+        var payButton = document.getElementById('pay-button');
+        payButton.addEventListener('click', function() {
+            // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
+            window.snap.pay('{{ $snapToken }}', {
+                onSuccess: function(result) {
+                    /* You may add your own implementation here */
+                    toastr.success("payment success!");
+                    window.location.href = '{{ route('home') }}';
+                    console.log(result);
                 },
-                onPending: function(result){
-                  /* You may add your own implementation here */
-                  alert("wating your payment!"); console.log(result);
+                onPending: function(result) {
+                    /* You may add your own implementation here */
+                    toastr.warning("wating your payment!");
+                    console.log(result);
                 },
-                onError: function(result){
-                  /* You may add your own implementation here */
-                  alert("payment failed!"); console.log(result);
+                onError: function(result) {
+                    /* You may add your own implementation here */
+                    toastr.error("payment failed!");
+                    console.log(result);
                 },
-                onClose: function(){
-                  /* You may add your own implementation here */
-                  alert('you closed the popup without finishing the payment');
+                onClose: function() {
+                    /* You may add your own implementation here */
+                    alert('you closed the popup without finishing the payment');
                 }
-              })
-            });
+            })
+        });
     </script>
 @endpush

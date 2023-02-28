@@ -28,35 +28,35 @@
                 <div class="col-md-4 mb-3">
                     <div class="card">
                         <div class="card-body">
-                            <p>{{ "Rp." . $dataSpp->nominal }}</p>
+                            <p>{{ 'Rp.' . $dataSpp->nominal }}</p>
                             <p>{{ $dataSpp->tahun }}</p>
                             <p>{{ $dataSpp->created_at }}</p>
-                            <a href="{{ route('dataBayarDetail', $dataSpp->id) }}" class="btn btn-primary btn-sm">Pay now</a>
+                            <a href="{{ route('dataBayarDetail', $dataSpp->id) }}" class="btn btn-primary">Checkout</a>
                         </div>
                     </div>
                 </div>
             @endforeach
 
         </div>
-        </div>
-    @endsection
+    </div>
+@endsection
 
-    @push('js')
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
-        </script>
+@push('js')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+    </script>
 
-        <script>
-            @if (Session::has('success'))
-                toastr.success("{{ Session::get('success') }}")
-            @endif
+    <script>
+        @if (Session::has('success'))
+            toastr.success("{{ Session::get('success') }}")
+        @endif
 
-            @if (Session::has('warning'))
-                toastr.warning("{{ Session::get('warning') }}")
-            @endif
+        @if (Session::has('warning'))
+            toastr.warning("{{ Session::get('warning') }}")
+        @endif
 
-            @if (Session::has('error'))
-                toastr.error("{{ Session::get('error') }}")
-            @endif
-        </script>
-    @endpush
+        @if (Session::has('error'))
+            toastr.error("{{ Session::get('error') }}")
+        @endif
+    </script>
+@endpush

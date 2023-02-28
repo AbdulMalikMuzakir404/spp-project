@@ -61,7 +61,7 @@
                             <div class="col-sm-9 text-secondary">
                                 <input type="text" wire:model.lazy="password"
                                     class="form-control @error('password') is-invalid @enderror"
-                                    placeholder="password" disabled required>
+                                    placeholder="password" required>
                                 @error('password')
                                     <span class="invalid-feedback">
                                         <strong>{{ $message }}</strong>

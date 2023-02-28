@@ -48,14 +48,16 @@ class DataTransaksi extends Component
             foreach($pembayaran as $pem) {
                 if($pem['nominal'] <= $pem['jumlah_bayar']) {
                     pembayaran::where('pembayarans.nisn', $pem['nisn'])->where('tgl_dibayar', $pem['tgl_dibayar'])->where('bln_dibayar', $pem['bln_dibayar'])->where('thn_dibayar', $pem['thn_dibayar'])->update([
-                        'status_pembayaran' => 1
+                        'status_pembayaran' => 1,
+                        'midtrans_status' => 'success'
                     ]);
 
                     $this->emit('otomatis-change-status-pembayaran-lunas');
 
                 } elseif($pem['nominal'] > $pem['jumlah_bayar']) {
                     pembayaran::where('pembayarans.nisn', $pem['nisn'])->where('tgl_dibayar', $pem['tgl_dibayar'])->where('bln_dibayar', $pem['bln_dibayar'])->where('thn_dibayar', $pem['thn_dibayar'])->update([
-                        'status_pembayaran' => 0
+                        'status_pembayaran' => 0,
+                        'midtrans_status' => 'pending'
                     ]);
 
                     $this->emit('otomatis-change-status-pembayaran-belum-lunas');
@@ -207,7 +209,16 @@ class DataTransaksi extends Component
 
         $nama_pengelola = Auth()->user()->name;
 
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $random_string = '';
+        $length = 20;
+
+        for ($i = 0; $i < $length; $i++) {
+            $random_string .= $characters[rand(0, strlen($characters) - 1)];
+        }
+
         pembayaran::create([
+            'kode_transaction' => $random_string,
             'nisn' => $this->nisn,
             'nama_siswa' => $this->name,
             'tgl_dibayar' => $this->tgl_dibayar,
@@ -216,7 +227,8 @@ class DataTransaksi extends Component
             'jumlah_bayar' => $this->jumlah_bayar,
             'spp_id' => $this->spp_id,
             'nama_pengelola' => $nama_pengelola,
-            'status_pembayaran' => 0
+            'status_pembayaran' => 0,
+            'midtrans_status' => 'pending'
         ]);
 
         $total_bayar = User::where('nisn', $this->nisn)->get('total_bayar');

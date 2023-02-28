@@ -18,7 +18,8 @@ class pembayaran extends Model
         'spp_id',
         'nama_pengelola',
         'status_pembayaran',
-        'nama_siswa'
+        'nama_siswa',
+        'kode_transaction'
     ];
 
     protected $hidden = [

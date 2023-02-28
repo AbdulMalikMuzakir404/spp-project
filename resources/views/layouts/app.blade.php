@@ -141,7 +141,7 @@
 
 
                         {{-- public --}}
-                        <li class="nav-item{{ Request::path() === route('home') ? 'bg-primary' : '' }}">
+                        <li class="nav-item {{ Route::currentRouteName() == 'home' ? ' active bg-gradient-primary' : '' }}">
                             <a href="{{ route('home') }}" class="nav-link">
                                 <i class="nav-icon bi bi-house-fill"></i>
                                 <p>
@@ -151,7 +151,7 @@
                         </li>
 
                         @can('pengelola')
-                            <li class="nav-item">
+                            <li class="nav-item {{ Route::currentRouteName() == 'showProfile' || Route::currentRouteName() == 'changeProfile' ? ' active bg-gradient-primary' : '' }}">
                                 <a href="{{ route('showProfile') }}" class="nav-link">
                                     <i class="nav-icon bi bi-person-circle"></i>
                                     <p>
@@ -160,7 +160,7 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item">
+                            <li class="nav-item {{ Route::currentRouteName() == 'dataTransaksi' ? ' active bg-gradient-primary' : '' }}">
                                 <a href="{{ route('dataTransaksi') }}" class="nav-link">
                                     <i class="nav-icon bi bi-bank"></i>
                                     <p>
@@ -171,7 +171,7 @@
                         @endcan
 
                         @can('siswa')
-                        <li class="nav-item">
+                        <li class="nav-item {{ Route::currentRouteName() == 'dataBayar' ? ' active bg-gradient-primary' : '' }}">
                             <a href="{{ route('dataBayar') }}" class="nav-link">
                                 <i class="nav-icon bi bi-globe2"></i>
                                 <p>
@@ -192,7 +192,7 @@
                                 </a>
 
                                 <ul class="nav nav-treeview">
-                                    <li class="nav-item">
+                                    <li class="nav-item {{ Route::currentRouteName() == 'makeSiswa' ? ' active bg-gradient-primary' : '' }}">
                                         <a href="{{ route('makeSiswa') }}" class="nav-link">
                                             <i class="nav-icon bi bi-person"></i>
                                             <p>
@@ -201,7 +201,7 @@
                                         </a>
                                     </li>
 
-                                    <li class="nav-item">
+                                    <li class="nav-item {{ Route::currentRouteName() == 'makePetugas' ? ' active bg-gradient-primary' : '' }}">
                                         <a href="{{ route('makePetugas') }}" class="nav-link">
                                             <i class="nav-icon bi bi-person-badge"></i>
                                             <p>
@@ -213,7 +213,7 @@
                             </li>
 
 
-                            <li class="nav-item">
+                            <li class="nav-item {{ Route::currentRouteName() == 'dataCreate' ? ' active bg-gradient-primary' : '' }}">
                                 <a href="{{ route('dataCreate') }}" class="nav-link">
                                     <i class="nav-icon bi bi-calendar-week"></i>
                                     <p>
@@ -224,7 +224,7 @@
                         @endcan
 
 
-                        <li class="nav-item">
+                        <li class="nav-item ">
                             <a href="/home/message" class="nav-link">
                                 <i class="nav-icon bi bi-chat-left-text"></i>
                                 <p>
@@ -233,7 +233,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item {{ Route::currentRouteName() == 'logout' ? ' active bg-gradient-primary' : '' }}">
                             <a class="nav-link" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">

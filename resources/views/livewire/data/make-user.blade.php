@@ -43,26 +43,6 @@
                                         @enderror
                                     </div>
                                 </div>
-                                {{-- <div class="row mt-3">
-                                    <div class="col-sm-3">
-                                        <h6 class="mb-0">Spp Id</h6>
-                                    </div>
-                                    <div class="col-sm-9 text-secondary">
-                                        <select aria-label="Default select example" wire:model.lazy="spp_id"
-                                            class="@error('spp_id') is-invalid @enderror form-select"
-                                            value="{{ old('spp_id') }}" required>
-                                            <option selected="selected">SPP ID</option>
-                                            @foreach ($spp as $data)
-                                            <option value="{{ $data->id }}">{{ $data->tahun . " - Rp." . $data->nominal }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('spp_id')
-                                            <span class="invalid-feedback">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div> --}}
                                 <div class="row mt-3">
                                     <div class="col-sm-3">
                                         <h6 class="mb-0">Kelas Id</h6>
@@ -104,10 +84,11 @@
                                     <div class="col-sm-3">
                                         <h6 class="mb-0">Phone</h6>
                                     </div>
-                                    <div class="col-sm-9 text-secondary">
+                                    <div class="col-sm-9 text-secondary input-group">
+                                        <span class="input-group-text" id="basic-addon3">+62</span>
                                         <input type="text" wire:model.lazy="no_telp"
                                             class="form-control @error('no_telp') is-invalid @enderror"
-                                            placeholder="+62 xxx xxxx xxxx" required>
+                                            placeholder=" xxx xxxx xxxx" required>
                                         @error('no_telp')
                                             <span class="invalid-feedback">
                                                 <strong>{{ $message }}</strong>
@@ -157,7 +138,7 @@
                     <h3>Table Data Siswa</h3>
                     <div class="row mt-3">
                         <div class="col">
-                            <select wire:model="paginate" class="form-control-sm w-auto">
+                            <select wire:model="paginate" class="form-select-sm w-auto">
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="15">15</option>
@@ -179,6 +160,7 @@
                                 <th scope="col">Nama Lengkap</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Alamat</th>
+                                <th scope="col">Sisa Tunggakan</th>
                                 <th scope="col">Action</th>
                             </tr>
                           </thead>
@@ -198,6 +180,7 @@
                               <td>{{ $dataSiswa->name }}</td>
                               <td>{{ $dataSiswa->no_telp }}</td>
                               <td>{{ $dataSiswa->alamat }}</td>
+                              <td>{{ $dataSiswa->total_bayar }}</td>
                               <td>
                                 <button wire:click="getIdSiswa({{ $dataSiswa->nisn }})" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></button>
                                 <button  wire:click="deleteSiswa({{ $dataSiswa->nisn }})" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
