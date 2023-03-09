@@ -70,6 +70,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/home/transaksi-to-pdf/{nisn}/{tahun}', [adminCreateLaporanController::class, 'createTransaksiLaporan'])->name('cetakTransaksiPdf')->middleware('pengelola');
 
         Route::get('/home/bayar', [bayarController::class, 'showBayar'])->name('dataBayar')->middleware('siswa');
-        Route::get('/home/bayar-detail/{id}', [bayarController::class, 'bayarDetail'])->name('dataBayarDetail')->middleware('siswa');
+        Route::post('/home/bayar-detail', [bayarController::class, 'bayarDetail'])->name('dataBayarDetail')->middleware('siswa');
     });
 });

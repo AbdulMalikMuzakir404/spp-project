@@ -102,7 +102,7 @@ class MakeUser extends Component
             'nis' => $this->nis,
             'password' => Hash::make($this->nis),
             'name' => $this->name,
-            'no_telp' => '+62 '.$this->no_telp,
+            'no_telp' => $this->no_telp,
             'alamat' => $this->alamat,
             'ruang_id' => $this->ruang_id,
             'level' => 'siswa',

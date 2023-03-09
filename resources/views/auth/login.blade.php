@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>SPP | Login</title>
+	<title>SPP | Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
     {{-- bootstrap css --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -14,11 +12,6 @@
     {{-- icon web app --}}
     <link rel="shortcut icon" href="{{ asset('storage/images/logo_aplikasi.png') }}">
 
-    <!-- Font Icon -->
-    <link rel="stylesheet" href="{{ asset('aa/fonts/material-icon/css/material-design-iconic-font.min.css') }}">
-
-    <!-- Main css -->
-    <link rel="stylesheet" href="{{ asset('aa/css/style.css') }}">
 
     {{-- bootstrap icon --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
@@ -37,110 +30,117 @@
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('template/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ asset('template/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('template/dist/css/adminlte.min.css') }}">
+
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('login_asset/vendor/bootstrap/css/bootstrap.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('login_asset/fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('login_asset/fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('login_asset/vendor/animate/animate.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('login_asset/vendor/css-hamburgers/hamburgers.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('login_asset/vendor/animsition/css/animsition.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('login_asset/vendor/select2/select2.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('login_asset/vendor/daterangepicker/daterangepicker.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ asset('login_asset/css/util.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('login_asset/css/main.css') }}">
+<!--===============================================================================================-->
 </head>
+<body style="background-color: #666666;">
 
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <!-- /.login-logo -->
-        <div class="card">
-            <div class="card-body login-card-body">
-                <h5 class="login-box-msg mb-3">MASUK</h5>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form action="{{ route('login') }}" method="post" class="login100-form validate-form">
+					@csrf
+                    <span class="login100-form-title p-b-43">
+						Login
+					</span>
 
-                <form action="{{ route('login') }}" method="post">
-                    <figure><img src="{{ asset('storage/images/logo_aplikasi.png') }}" alt="logo"
-                            class="rounded-circle img-responsive" width="150" height="150"></figure>
-                    <p class="login-box-msg mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim,
-                        ducimus.</p>
-                    @csrf
-
-                    <div class="px-2">
-                        <div class="form-group">
-                            <label for="username"><i class="bi bi-person"></i></label>
-                            <input type="text" class="@error('username') is-invalid @enderror" id="username"
-                                name="username" value="{{ old('username') }}" placeholder="Username" required
-                                autocomplete="off" autofocus>
-                            @error('username')
-                                <script>
-                                    toastr.error("{{ $message }}")
-                                </script>
-                            @enderror
+                    <div class="container d-flex justify-content-center">
+                        <div class="row-auto">
+                            <div class="col-auto">
+                                <figure><img src="{{ asset('storage/images/logo_aplikasi.png') }}" alt="logo"
+                                    class="rounded-circle img-responsive" width="150" height="150"></figure>
+                            </div>
                         </div>
-                        <div class="form-group py-2">
-                            <label for="nis"><i class="bi bi-lock"></i></label>
-                            <input type="password" class="@error('password') is-invalid @enderror" id="password"
-                                name="password" placeholder="Password" required autocomplete="current-password">
-                            @error('password')
-                                <script>
-                                    toastr.error("{{ $message }}")
-                                </script>
-                            @enderror
+                    </div>
+
+                    <div class="container d-flex justify-content-center mb-5">
+                        <div class="row-auto">
+                            <div class="col-auto">
+                                <p class="login-box-msg mb-3 text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim,
+                                    ducimus.</p>
+                            </div>
                         </div>
                     </div>
 
 
-                    <div class="px-2">
-                        <div class="icheck-primary">
-                            <input type="checkbox" name="remember-me" id="remember-me" class="agree-term">
-                            <label for="remember-me" class="label-agree-term">
-                                <p>remember me</p>
-                            </label>
-                        </div>
-
-                    </div>
-
-                    {{-- <div class="input-type-group px-2 mt-3 mb-3">
-                        {!! NoCaptcha::renderJs('en', false, 'onloadCallback') !!}
-                        {!! NoCaptcha::display(['data-theme' => 'light']) !!}
-                        @if ($errors->has('g-recaptcha-response'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-                            </span>
-                        @endif
-                    </div> --}}
-
-                    <div class="px-2 mt-3">
-                        <button type="submit" style="background: #2F5D62; height: 35px; color: rgb(255, 255, 255);"
-                            class="btn-block mx-auto rounded-pill">Masuk</button>
-                    </div>
-
-                    <div class="px-2 mt-3">
-                        <a href="{{ route('loginSiswa') }}" style="background: #2F5D62; color: rgb(255, 255, 255);"
-                            class="btn btn-block mx-auto rounded-pill">Masuk sebagai Siswa</a>
-                    </div>
-
-                </form>
-
-                <div class="row">
-                    <div class="col">
-                        @if (Route::has('password.request'))
-                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                                {{ __('Forgot password?') }}
-                            </a>
-                        @endif
-                    </div>
-                    <div class="col">
-                        @if (Route::has('register'))
-                            <a class="btn btn-link" href="{{ route('register') }}">
-                                {{ __('Create new akun?') }}
-                            </a>
-                        @endif
-                    </div>
-                </div>
+					<div class="wrap-input100">
+						<input class="input100 @error('username') is-invalid @enderror" type="text" name="username" value="{{ old('username') }}" required autocomplete="off" autofocus>
+						<span class="focus-input100"></span>
+						<span class="label-input100">Username</span>
+                        @error('username')
+                            <script>
+                                toastr.error("{{ $message }}")
+                            </script>
+                        @enderror
+					</div>
 
 
+					<div class="wrap-input100">
+						<input class="input100 @error('password') is-invalid @enderror" type="password" name="password"required autocomplete="current-password">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Password</span>
+                        @error('password')
+                            <script>
+                                toastr.error("{{ $message }}")
+                            </script>
+                        @enderror
+					</div>
+
+					<div class="flex-sb-m w-full p-t-3 p-b-32">
+						<div class="contact100-form-checkbox">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<label class="label-checkbox100" for="ckb1">
+								Remember me
+							</label>
+						</div>
+
+						<div>
+                            @if (Route::has('password.request'))
+                                <a class="btn btn-link txt1" href="{{ route('password.request') }}">
+                                    {{ __('Forgot password?') }}
+                                </a>
+                            @endif
+						</div>
+					</div>
 
 
-            </div>
-            <!-- /.login-card-body -->
-        </div>
-    </div>
+					<div class="container-login100-form-btn">
+						<button type="submit" class="login100-form-btn">
+							Masuk
+						</button>
+					</div>
 
+                    <div class="mt-3 container-login100-form-btn">
+						<a href="{{ route('loginSiswa') }}" class="login100-form-btn">
+							Masuk Sebagai Siswa
+                        </a>
+					</div>
+				</form>
+
+				<div class="login100-more" style="background-image: url('{{ asset('storage/images/image_sekolah.jpg') }}');">
+				</div>
+			</div>
+		</div>
+	</div>
 
     {{-- script bootsrap --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
@@ -152,10 +152,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
         integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous">
     </script>
-
-    <!-- JS -->
-    <script src="{{ asset('aa/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('aa/js/main.js') }}"></script>
 
     {{-- onload reaptha --}}
     <script>
@@ -186,6 +182,26 @@
     <script src="{{ asset('template/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('template/dist/js/adminlte.min.js') }}"></script>
-</body>
 
+
+
+
+<!--===============================================================================================-->
+	<script src="{{ asset('login_asset/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ asset('login_asset/vendor/animsition/js/animsition.min.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ asset('login_asset/vendor/bootstrap/js/popper.js') }}"></script>
+	<script src="{{ asset('login_asset/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ asset('login_asset/vendor/select2/select2.min.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ asset('login_asset/vendor/daterangepicker/moment.min.js') }}"></script>
+	<script src="{{ asset('login_asset/vendor/daterangepicker/daterangepicker.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ asset('login_asset/vendor/countdowntime/countdowntime.js') }}"></script>
+<!--===============================================================================================-->
+	<script src="{{ asset('login_asset/js/main.js') }}"></script>
+
+</body>
 </html>

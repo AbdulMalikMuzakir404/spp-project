@@ -189,6 +189,11 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Table Data Transaksi</h3>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <input wire:model="search" type="text" class="form-control w-auto" placeholder="Search...">
+                        </div>
+                    </div>
                     <div class="row mt-3">
                         <div class="col">
                             <select wire:model="paginate" class="form-select-sm w-auto">
@@ -202,9 +207,6 @@
                                 <option value="1">lunas</option>
                                 <option value="0">belum lunas</option>
                             </select>
-                        </div>
-                        <div class="col">
-                            <input wire:model="search" type="text" class="form-control w-auto" placeholder="Seacrh">
                         </div>
                     </div>
                 </div>

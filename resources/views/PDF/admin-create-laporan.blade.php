@@ -219,6 +219,7 @@
             <div>
                 <p style="font-size: 13px;">Pembuat : {{ auth()->user()->name }}</p>
                 <p style="font-size: 13px;">Date : {{ date('Y-m-d') }}</p>
+                <p style="font-size: 13px;">Sisa tunggakan Rp.{{ $sisa_tunggakan }}</p>
             </div>
             <!-- /footer -->
     </body>

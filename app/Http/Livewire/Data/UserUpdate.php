@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserUpdate extends Component
 {
-    public $email, $nisn, $nis, $name, $no_telp, $alamat, $spp_id, $ruang_id, $nama_kelas, $kopetensi_keahlian, $siswaId;
+    public $email, $nisn, $nis, $name, $no_telp, $total_bayar, $alamat, $spp_id, $ruang_id, $nama_kelas, $kopetensi_keahlian, $siswaId;
 
     public $isLoading = false;
 
@@ -23,7 +23,8 @@ class UserUpdate extends Component
     {
         return view('livewire.data.user-update', [
             // 'spp' => spp::get(),
-            'ruang' => ruang::get()
+            'ruang' => ruang::get(),
+            'spp' => spp::whereYear('tahun', date('Y'))->sum('nominal'),
         ]);
     }
 
@@ -66,18 +67,35 @@ class UserUpdate extends Component
             'ruang_id' => 'required',
             'nama_kelas' => 'required|max:10',
             'kopetensi_keahlian' => 'required|max:20',
+            'total_bayar' => 'required',
         ]);
 
-        User::join('ruangs', 'users.ruang_id', 'ruangs.id')->where('users.id', $this->siswaId)->update([
+        if($this->total_bayar == 'tidak') {
+            User::join('ruangs', 'users.ruang_id', 'ruangs.id')->where('users.id', $this->siswaId)->update([
+                'nis' => $this->nis,
+                'password' => Hash::make($this->nis),
+                'name' => $this->name,
+                'no_telp' => $this->no_telp,
+                'alamat' => $this->alamat,
+                'ruang_id' => $this->ruang_id,
+                'nama_kelas' => $this->nama_kelas,
+                'kopetensi_keahlian' => $this->kopetensi_keahlian,
+            ]);
+        } else{
+            User::join('ruangs', 'users.ruang_id', 'ruangs.id')->where('users.id', $this->siswaId)->update([
             'nis' => $this->nis,
             'password' => Hash::make($this->nis),
             'name' => $this->name,
-            'no_telp' => '+62 '.$this->no_telp,
+            'no_telp' => $this->no_telp,
             'alamat' => $this->alamat,
             'ruang_id' => $this->ruang_id,
             'nama_kelas' => $this->nama_kelas,
             'kopetensi_keahlian' => $this->kopetensi_keahlian,
+            'total_bayar' => $this->total_bayar,
         ]);
+        }
+
+
 
         return redirect()->route('makeSiswa')->with('success', 'student data successfully changed');
         $this->clearDataUpdateSiswa();
@@ -93,7 +111,8 @@ class UserUpdate extends Component
         $this->no_telp = null;
         $this->alamat = null;
         $this->spp_id = null;
-        $this->ruang_id = null;
+ 
+       $this->ruang_id = null;
         $this->nama_kelas = null;
         $this->kopetensi_keahlian = null;
     }

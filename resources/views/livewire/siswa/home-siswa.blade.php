@@ -70,7 +70,7 @@
                     <div class="card-body">
                         <div class="card-head">
                             <select wire:model="tahun" class="form-select w-auto">
-                                <option selected="selected">Tahun</option>
+                                <option selected="selected" disabled>Tahun</option>
                                 @for ($tahun = date('Y'); $tahun >= 2000; $tahun--)
                                     <option value="{{ $tahun }}">{{ $tahun }}</option>
                                 @endfor
@@ -89,7 +89,7 @@
                                     <th scope="col">Jumah Bayar</th>
                                     <th scope="col">Data SPP</th>
                                     <th scope="col">Tunggakan Perbulan</th>
-                                    <th scope="col">Tunggakan Pertahun</th>
+                                    <th scope="col">Status Pembayaran</th>
                                     <th scope="col">Created</th>
                                     <th scope="col">Updated</th>
                                     <th scope="col">Status Pembayaran</th>
@@ -111,7 +111,7 @@
                                         <td>{{ $dataTransaksi->jumlah_bayar }}</td>
                                         <td>{{ $dataTransaksi->tahun . " - Rp." . $dataTransaksi->nominal }}</td>
                                         <td>{{ "Rp." . $dataTransaksi->nominal - $dataTransaksi->jumlah_bayar }}</td>
-                                        <td>{{ "Rp." . $dataTransaksi->total_bayar }}</td>
+                                        <td>{{ $dataTransaksi->midtrans_status }}</td>
                                         <td>{{ $dataTransaksi->created_at }}</td>
                                         <td>{{ $dataTransaksi->updated_at }}</td>
                                         @if ($dataTransaksi->status_pembayaran == 1)

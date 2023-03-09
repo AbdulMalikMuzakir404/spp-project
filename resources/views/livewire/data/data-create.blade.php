@@ -148,7 +148,7 @@
                             </select>
                         </div>
                         <div class="col">
-                            <input wire:model="search_spp" type="text" class="form-control w-auto" placeholder="Seacrh">
+                            <input wire:model="search_spp" type="text" class="form-control w-auto" placeholder="Search...">
                         </div>
                     </div>
                 </div>
@@ -211,7 +211,7 @@
                             </select>
                         </div>
                         <div class="col">
-                            <input wire:model="search_kelas" type="text" class="form-control w-auto" placeholder="Seacrh">
+                            <input wire:model="search_kelas" type="text" class="form-control w-auto" placeholder="Search...">
                         </div>
                     </div>
                 </div>

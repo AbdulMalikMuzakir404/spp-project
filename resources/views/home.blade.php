@@ -5,7 +5,7 @@
 @endpush
 
 @section('content')
-    @can('admin')
+    @can('pengelola')
         <div class="container">
             <div class="row">
 
@@ -85,52 +85,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <!-- Calendar -->
-                            <div class="card bg-gradient-success">
-                                <div class="card-header border-0">
-
-                                    <h3 class="card-title">
-                                        <i class="far fa-calendar-alt"></i>
-                                        Calendar
-                                    </h3>
-                                    <!-- tools card -->
-                                    <div class="card-tools">
-                                        <!-- button with a dropdown -->
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-success btn-sm dropdown-toggle"
-                                                data-toggle="dropdown" data-offset="-52">
-                                                <i class="fas fa-bars"></i>
-                                            </button>
-                                            <div class="dropdown-menu" role="menu">
-                                                <a href="#" class="dropdown-item">Add new event</a>
-                                                <a href="#" class="dropdown-item">Clear events</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item">View calendar</a>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>
-                                    <!-- /. tools -->
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body pt-0">
-                                    <!--The calendar -->
-                                    <div id="calendar" style="width: 100%"></div>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
-                            <!-- /.card -->
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -167,7 +121,6 @@
                                     <th scope="col">Jumah Bayar</th>
                                     <th scope="col">Data SPP</th>
                                     <th scope="col">Tunggakan Perbulan</th>
-                                    <th scope="col">Tunggakan Pertahun</th>
                                     <th scope="col">Created</th>
                                     <th scope="col">Updated</th>
                                     <th scope="col">Status Pembayaran</th>
@@ -190,7 +143,6 @@
                                         <td>{{ $dataTransaksi->jumlah_bayar }}</td>
                                         <td>{{ $dataTransaksi->tahun . " - Rp." . $dataTransaksi->nominal }}</td>
                                         <td>{{ "Rp." . $dataTransaksi->nominal - $dataTransaksi->jumlah_bayar }}</td>
-                                        <td>{{ "Rp." . $dataTransaksi->total_bayar }}</td>
                                         <td>{{ $dataTransaksi->created_at }}</td>
                                         <td>{{ $dataTransaksi->updated_at }}</td>
                                         @if ($dataTransaksi->status_pembayaran == 1)

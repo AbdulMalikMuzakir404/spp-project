@@ -31,7 +31,11 @@
                             <p>{{ 'Rp.' . $dataSpp->nominal }}</p>
                             <p>{{ $dataSpp->tahun }}</p>
                             <p>{{ $dataSpp->created_at }}</p>
-                            <a href="{{ route('dataBayarDetail', $dataSpp->id) }}" class="btn btn-primary">Checkout</a>
+                            <form action="{{ route('dataBayarDetail') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="id_bayar" value="{{ $dataSpp->id }}">
+                                <button type="submit" class="btn btn-primary">Checkout</button>
+                            </form>
                         </div>
                     </div>
                 </div>

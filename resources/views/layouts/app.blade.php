@@ -141,7 +141,7 @@
 
 
                         {{-- public --}}
-                        <li class="nav-item {{ Route::currentRouteName() == 'home' ? ' active bg-gradient-primary' : '' }}">
+                        <li class="nav-item {{ Route::currentRouteName() == 'home' || Route::currentRouteName() == 'detailCetak' ? ' active bg-gradient-primary' : '' }}">
                             <a href="{{ route('home') }}" class="nav-link">
                                 <i class="nav-icon bi bi-house-fill"></i>
                                 <p>
@@ -171,7 +171,7 @@
                         @endcan
 
                         @can('siswa')
-                        <li class="nav-item {{ Route::currentRouteName() == 'dataBayar' ? ' active bg-gradient-primary' : '' }}">
+                        <li class="nav-item {{ Route::currentRouteName() == 'dataBayar' || Route::currentRouteName() == 'dataBayarDetail' ? ' active bg-gradient-primary' : '' }}">
                             <a href="{{ route('dataBayar') }}" class="nav-link">
                                 <i class="nav-icon bi bi-globe2"></i>
                                 <p>

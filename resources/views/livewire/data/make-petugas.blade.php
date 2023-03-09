@@ -111,7 +111,7 @@
                             </select>
                         </div>
                         <div class="col">
-                            <input wire:model="search" type="text" class="form-control w-auto" placeholder="Seacrh">
+                            <input wire:model="search" type="text" class="form-control w-auto" placeholder="Search...">
                         </div>
                     </div>
                 </div>
@@ -132,12 +132,9 @@
                             @php
                                 $no = 0;
                             @endphp
-                            @foreach ($petugas as $dataPetugas)
-                                @php
-                                    $no++;
-                                @endphp
+                            @foreach ($petugas as $key => $dataPetugas)
                             <tr>
-                              <th scope="row">{{ $no }}</th>
+                              <th scope="row">{{ $key += $petugas->firstItem() }}</th>
                               <td>{{ $dataPetugas->email }}</td>
                               <td>{{ $dataPetugas->name }}</td>
                               <td>{{ $dataPetugas->username }}</td>

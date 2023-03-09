@@ -112,6 +112,34 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-sm-3">
+                                <h6 class="mb-0">Pebaharui data spp</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                <div class="container">
+                                    <div class="form-check">
+                                        <input wire:model.lazy="total_bayar" value="{{ $spp }}" class="form-check-input @error('total_bayar') is-invalid @enderror" type="radio"
+                                            id="ya">
+                                        <label class="form-check-label" for="ya">
+                                            Ya
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input wire:model.lazy="total_bayar" value="tidak" class="form-check-input @error('total_bayar') is-invalid @enderror" type="radio"
+                                            id="tidak" checked>
+                                        <label class="form-check-label" for="tidak">
+                                            Tidak
+                                        </label>
+                                    </div>
+                                </div>
+                                @error('total_bayar')
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-sm-3">
                                 <h6 class="mb-0">Alamat</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">

@@ -20,11 +20,11 @@ class bayarController extends Controller
         ));
     }
 
-    public function bayarDetail($id)
+    public function bayarDetail(Request $request)
     {
-        $data = spp::where('id', $id)->get();
+        $data = spp::where('id', $request->id_bayar)->get();
 
-        $gross_amount = spp::where('id', $id)->get()->toArray();
+        $gross_amount = spp::where('id', $request->id_bayar)->get()->toArray();
         foreach($gross_amount as $amount){
             $data_amount = $amount;
         }
@@ -70,6 +70,13 @@ class bayarController extends Controller
                 break;
         }
 
+
+        $countBayar = pembayaran::where('nisn', auth()->user()->nisn)->where('bln_dibayar', $bln)->where('thn_dibayar', $date_exp[0])->where('midtrans_status', 'pending')->get();
+        $countB = count($countBayar);
+        if($countB >= 1) {
+            pembayaran::where('nisn', auth()->user()->nisn)->where('bln_dibayar', $bln)->where('thn_dibayar', $date_exp[0])->where('midtrans_status', 'pending')->delete();
+        }
+        
         $cekDatePembayaran = pembayaran::where('nisn', auth()->user()->nisn)->where('bln_dibayar', $bln)->where('thn_dibayar', $date_exp[0])->where('jumlah_bayar', '!=', null)->get();
 
         if(count($cekDatePembayaran) >= 1) {
@@ -82,12 +89,6 @@ class bayarController extends Controller
             if(intval($data_amount['nominal']) > intval($data['nominal'])) {
                 return redirect()->back()->with('error', 'failed to updated data!');
             }
-        }
-
-        $countBayar = pembayaran::where('nisn', auth()->user()->nisn)->where('bln_dibayar', $bln)->where('thn_dibayar', $date_exp[0])->where('midtrans_status', 'pending')->get();
-        $countB = count($countBayar);
-        if($countB >= 1) {
-            pembayaran::where('nisn', auth()->user()->nisn)->where('bln_dibayar', $bln)->where('thn_dibayar', $date_exp[0])->where('midtrans_status', 'pending')->delete();
         }
 
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -106,7 +107,7 @@ class bayarController extends Controller
             'bln_dibayar' => $bln,
             'thn_dibayar' => $date_exp[0],
             'jumlah_bayar' => '0',
-            'spp_id' => $id,
+            'spp_id' => $request->id_bayar,
             'nama_pengelola' => 'NULL',
             'status_pembayaran' => 0,
             'midtrans_status' => 'pending'
