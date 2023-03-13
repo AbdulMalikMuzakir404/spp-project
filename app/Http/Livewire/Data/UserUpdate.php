@@ -6,6 +6,7 @@ use App\Models\spp;
 use App\Models\User;
 use App\Models\ruang;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserUpdate extends Component
@@ -71,30 +72,51 @@ class UserUpdate extends Component
         ]);
 
         if($this->total_bayar == 'tidak') {
-            User::join('ruangs', 'users.ruang_id', 'ruangs.id')->where('users.id', $this->siswaId)->update([
-                'nis' => $this->nis,
-                'password' => Hash::make($this->nis),
-                'name' => $this->name,
-                'no_telp' => $this->no_telp,
-                'alamat' => $this->alamat,
-                'ruang_id' => $this->ruang_id,
-                'nama_kelas' => $this->nama_kelas,
-                'kopetensi_keahlian' => $this->kopetensi_keahlian,
-            ]);
-        } else{
-            User::join('ruangs', 'users.ruang_id', 'ruangs.id')->where('users.id', $this->siswaId)->update([
-            'nis' => $this->nis,
-            'password' => Hash::make($this->nis),
-            'name' => $this->name,
-            'no_telp' => $this->no_telp,
-            'alamat' => $this->alamat,
-            'ruang_id' => $this->ruang_id,
-            'nama_kelas' => $this->nama_kelas,
-            'kopetensi_keahlian' => $this->kopetensi_keahlian,
-            'total_bayar' => $this->total_bayar,
-        ]);
-        }
 
+            DB::beginTransaction();
+
+            try {
+                User::join('ruangs', 'users.ruang_id', 'ruangs.id')->where('users.id', $this->siswaId)->update([
+                    'nis' => $this->nis,
+                    'password' => Hash::make($this->nis),
+                    'name' => $this->name,
+                    'no_telp' => $this->no_telp,
+                    'alamat' => $this->alamat,
+                    'ruang_id' => $this->ruang_id,
+                    'nama_kelas' => $this->nama_kelas,
+                    'kopetensi_keahlian' => $this->kopetensi_keahlian,
+                ]);
+
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+
+        } else{
+
+            DB::beginTransaction();
+
+            try {
+                User::join('ruangs', 'users.ruang_id', 'ruangs.id')->where('users.id', $this->siswaId)->update([
+                    'nis' => $this->nis,
+                    'password' => Hash::make($this->nis),
+                    'name' => $this->name,
+                    'no_telp' => $this->no_telp,
+                    'alamat' => $this->alamat,
+                    'ruang_id' => $this->ruang_id,
+                    'nama_kelas' => $this->nama_kelas,
+                    'kopetensi_keahlian' => $this->kopetensi_keahlian,
+                    'total_bayar' => $this->total_bayar,
+                ]);
+
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollback();
+                throw $e;
+            }
+
+        }
 
 
         return redirect()->route('makeSiswa')->with('success', 'student data successfully changed');
@@ -111,7 +133,7 @@ class UserUpdate extends Component
         $this->no_telp = null;
         $this->alamat = null;
         $this->spp_id = null;
- 
+
        $this->ruang_id = null;
         $this->nama_kelas = null;
         $this->kopetensi_keahlian = null;

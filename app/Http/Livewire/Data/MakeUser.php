@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\ruang;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class MakeUser extends Component
@@ -97,17 +98,27 @@ class MakeUser extends Component
             'ruang_id' => 'required'
         ]);
 
-        User::create([
-            'nisn' => $this->nisn,
-            'nis' => $this->nis,
-            'password' => Hash::make($this->nis),
-            'name' => $this->name,
-            'no_telp' => $this->no_telp,
-            'alamat' => $this->alamat,
-            'ruang_id' => $this->ruang_id,
-            'level' => 'siswa',
-            'total_bayar' => $this->total_bayar
-        ]);
+        DB::beginTransaction();
+
+        try {
+            User::create([
+                'nisn' => $this->nisn,
+                'nis' => $this->nis,
+                'password' => Hash::make($this->nis),
+                'name' => $this->name,
+                'no_telp' => $this->no_telp,
+                'alamat' => $this->alamat,
+                'ruang_id' => $this->ruang_id,
+                'level' => 'siswa',
+                'total_bayar' => $this->total_bayar
+            ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
+
 
         if($this->total_bayar){
             User::where('nisn', $this->nisn)->where('level', 'siswa')->update([

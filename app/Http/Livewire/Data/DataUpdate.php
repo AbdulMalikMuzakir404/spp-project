@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Data;
 
 use App\Models\spp;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 
 class DataUpdate extends Component
 {
@@ -51,10 +52,20 @@ class DataUpdate extends Component
         //     return redirect()->route('dataCreate')->with('error', 'SPP data already exists!');
         // }
 
-        spp::where('id', $this->sppId)->update([
-            'tahun' => $this->tahun,
-            'nominal' => $this->nominal
-        ]);
+        DB::beginTransaction();
+
+        try {
+
+            spp::where('id', $this->sppId)->update([
+                'tahun' => $this->tahun,
+                'nominal' => $this->nominal
+            ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
 
 
         return redirect()->route('dataCreate')->with('success', 'SPP data successfully changed');

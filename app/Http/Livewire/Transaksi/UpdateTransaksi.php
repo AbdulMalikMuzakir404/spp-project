@@ -6,6 +6,7 @@ use App\Models\spp;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\pembayaran;
+use Illuminate\Support\Facades\DB;
 
 class UpdateTransaksi extends Component
 {
@@ -126,25 +127,44 @@ class UpdateTransaksi extends Component
 
         $nama_pengelola = Auth()->user()->name;
 
-        pembayaran::find($this->transaksiId)->update([
-            'nisn' => $this->nisn,
-            'nama_siswa' => $this->name,
-            'spp_id' => $this->spp_id,
-            'tgl_dibayar' => $this->tgl_dibayar,
-            'bln_dibayar' => $this->bln_dibayar,
-            'thn_dibayar' => $this->thn_dibayar,
-            'jumlah_bayar' => intval($this->jumlah_bayar) + intval($this->jumlah_bayar_update),
-            'nama_pengelola' => $nama_pengelola,
-        ]);
+        DB::beginTransaction();
+
+        try {
+            pembayaran::find($this->transaksiId)->update([
+                'nisn' => $this->nisn,
+                'nama_siswa' => $this->name,
+                'spp_id' => $this->spp_id,
+                'tgl_dibayar' => $this->tgl_dibayar,
+                'bln_dibayar' => $this->bln_dibayar,
+                'thn_dibayar' => $this->thn_dibayar,
+                'jumlah_bayar' => intval($this->jumlah_bayar) + intval($this->jumlah_bayar_update),
+                'nama_pengelola' => $nama_pengelola,
+            ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
+
 
         $total_bayar = User::where('nisn', $this->nisn)->get('total_bayar');
         foreach($total_bayar as $bayar) {
                 $totalBayarUpdate = intval($bayar['total_bayar']) - intval($this->jumlah_bayar_update);
         }
 
-        User::where('nisn', $this->nisn)->update([
-            'total_bayar' => $totalBayarUpdate
-        ]);
+        DB::beginTransaction();
+
+        try {
+            User::where('nisn', $this->nisn)->update([
+                'total_bayar' => $totalBayarUpdate
+            ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
 
 
         return redirect()->route('dataTransaksi')->with('success', 'transaction data successfully updated');

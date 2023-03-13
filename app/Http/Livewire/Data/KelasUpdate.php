@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Data;
 
 use App\Models\ruang;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 
 class KelasUpdate extends Component
 {
@@ -51,10 +52,20 @@ class KelasUpdate extends Component
             return redirect()->route('dataCreate')->with('error', 'Room data already exists!');
         }
 
-        ruang::where('id', $this->kelasId)->update([
-            'nama_kelas' => $this->nama_kelas,
-            'kopetensi_keahlian' => $this->kopetensi_keahlian
-        ]);
+        DB::beginTransaction();
+
+        try {
+            ruang::where('id', $this->kelasId)->update([
+                'nama_kelas' => $this->nama_kelas,
+                'kopetensi_keahlian' => $this->kopetensi_keahlian
+            ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
+
 
 
         return redirect()->route('dataCreate')->with('success', 'room data successfully changed');

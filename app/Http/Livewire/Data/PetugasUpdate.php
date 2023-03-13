@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Data;
 
 use App\Models\User;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class PetugasUpdate extends Component
@@ -50,13 +51,23 @@ class PetugasUpdate extends Component
             'password' => 'required|min:8|max:70|string'
         ]);
 
-        User::find($this->petugasId)->update([
-            'email' => $this->email,
-            'name' => $this->name,
-            'password' => Hash::make($this->password),
-            'password_show' => $this->password,
-            'username' => $this->username
-        ]);
+        DB::beginTransaction();
+
+        try {
+            User::find($this->petugasId)->update([
+                'email' => $this->email,
+                'name' => $this->name,
+                'password' => Hash::make($this->password),
+                'password_show' => $this->password,
+                'username' => $this->username
+            ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
+
 
         return redirect()->route('makePetugas')->with('success', 'Officer data successfully changed');
         $this->clearDataUpdatePetugas();

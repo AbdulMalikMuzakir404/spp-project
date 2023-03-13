@@ -7,6 +7,7 @@ use App\Models\User;
 use Livewire\Component;
 use App\Models\pembayaran;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 class DataTransaksi extends Component
 {
@@ -217,28 +218,49 @@ class DataTransaksi extends Component
             $random_string .= $characters[rand(0, strlen($characters) - 1)];
         }
 
-        pembayaran::create([
-            'kode_transaction' => $random_string,
-            'nisn' => $this->nisn,
-            'nama_siswa' => $this->name,
-            'tgl_dibayar' => $this->tgl_dibayar,
-            'bln_dibayar' => $this->bln_dibayar,
-            'thn_dibayar' => $this->thn_dibayar,
-            'jumlah_bayar' => $this->jumlah_bayar,
-            'spp_id' => $this->spp_id,
-            'nama_pengelola' => $nama_pengelola,
-            'status_pembayaran' => 0,
-            'midtrans_status' => 'pending'
-        ]);
+        DB::beginTransaction();
+
+        try {
+            pembayaran::create([
+                'kode_transaction' => $random_string,
+                'nisn' => $this->nisn,
+                'nama_siswa' => $this->name,
+                'tgl_dibayar' => $this->tgl_dibayar,
+                'bln_dibayar' => $this->bln_dibayar,
+                'thn_dibayar' => $this->thn_dibayar,
+                'jumlah_bayar' => $this->jumlah_bayar,
+                'spp_id' => $this->spp_id,
+                'nama_pengelola' => $nama_pengelola,
+                'status_pembayaran' => 0,
+                'midtrans_status' => 'pending'
+            ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
+
+
 
         $total_bayar = User::where('nisn', $this->nisn)->get('total_bayar');
         foreach($total_bayar as $bayar) {
                 $totalBayarUpdate = intval($bayar['total_bayar']) - intval($this->jumlah_bayar);
         }
 
-        User::where('nisn', $this->nisn)->update([
-            'total_bayar' => $totalBayarUpdate
-        ]);
+        DB::beginTransaction();
+
+        try {
+            User::where('nisn', $this->nisn)->update([
+                'total_bayar' => $totalBayarUpdate
+            ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
+
 
 
         return redirect()->route('dataTransaksi')->with('success', 'transaction data successfully added');

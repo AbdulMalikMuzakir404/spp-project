@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Profile;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -88,9 +89,19 @@ class ChangeProfile extends Component
 
         ]);
 
-        User::where('id', $this->userId)->update([
-            'email' => $this->email
-        ]);
+        DB::beginTransaction();
+
+        try {
+            User::where('id', $this->userId)->update([
+                'email' => $this->email
+            ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
+
 
         return redirect()
             ->route('changeProfile')

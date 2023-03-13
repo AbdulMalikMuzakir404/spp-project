@@ -6,6 +6,7 @@ use App\Models\spp;
 use App\Models\ruang;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
 class DataCreate extends Component
 {
@@ -142,11 +143,20 @@ class DataCreate extends Component
             return redirect()->route('dataCreate')->with('error', 'SPP data already exists!');
         }
 
-        spp::create([
-            'tahun' => $this->tahun,
-            'nominal' => $this->nominal
-        ]);
+        DB::beginTransaction();
 
+        try {
+            spp::create([
+                'tahun' => $this->tahun,
+                'nominal' => $this->nominal
+            ]);
+
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
 
         return redirect()->route('dataCreate')->with('success', 'SPP data successfully added');
         $this->clearDataCreateSpp();
@@ -173,10 +183,19 @@ class DataCreate extends Component
             return redirect()->route('dataCreate')->with('error', 'Room data already exists!');
         }
 
-        ruang::create([
-            'nama_kelas' => $this->nama_kelas,
-            'kopetensi_keahlian' => $this->kopetensi_keahlian
-        ]);
+        DB::beginTransaction();
+
+        try {
+            ruang::create([
+                'nama_kelas' => $this->nama_kelas,
+                'kopetensi_keahlian' => $this->kopetensi_keahlian
+            ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
 
 
         return redirect()->route('dataCreate')->with('success', 'Room data added successfully');

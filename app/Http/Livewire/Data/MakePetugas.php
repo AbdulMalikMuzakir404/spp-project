@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Data;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class MakePetugas extends Component
@@ -81,14 +82,23 @@ class MakePetugas extends Component
             'password' => 'required|min:8|max:70|string'
         ]);
 
-        User::create([
-            'email' => $this->email,
-            'name' => $this->name,
-            'username' => $this->username,
-            'password' => Hash::make($this->password),
-            'password_show' => $this->password,
-            'level' => 'petugas',
-        ]);
+        DB::beginTransaction();
+
+        try {
+            User::create([
+                'email' => $this->email,
+                'name' => $this->name,
+                'username' => $this->username,
+                'password' => Hash::make($this->password),
+                'password_show' => $this->password,
+                'level' => 'petugas',
+            ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
+        }
 
         return redirect()->route('makePetugas')->with('success', 'Officer data added successfully');
         $this->clearDataCreatePetugas();

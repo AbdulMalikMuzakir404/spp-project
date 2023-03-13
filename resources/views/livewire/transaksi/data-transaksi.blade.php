@@ -210,8 +210,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <table class="table table-striped table-hover table-responsive">
+                <div class="card-body overflow-scroll">
+                    <table class="table table-striped table-hover text-center">
                         <thead>
                             <tr>
                                 <th scope="col">No</th>

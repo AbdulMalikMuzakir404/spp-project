@@ -67,7 +67,7 @@
 
             <div class="col-md-8">
                 <div class="card mb-3">
-                    <div class="card-body">
+                    <div class="card-body overflow-scroll">
                         <div class="card-head">
                             <select wire:model="tahun" class="form-select w-auto">
                                 <option selected="selected" disabled>Tahun</option>
@@ -76,7 +76,7 @@
                                 @endfor
                             </select>
                         </div>
-                        <table class="table table-striped table-hover table-responsive">
+                        <table class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>

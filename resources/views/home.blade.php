@@ -90,7 +90,7 @@
 
         <div class="container">
             <div class="col-md-12 mb-3">
-                <div class="card">
+                <div class="card                                                    ">
                     <div class="card-header">
                         <h3>Table Data Transaksi</h3>
                         <form action="{{ route('home') }}" method="get">
@@ -107,8 +107,8 @@
                             </div>
                         </form>
                     </div>
-                    <div class="card-body">
-                        <table class="table table-striped table-hover table-responsive">
+                    <div class="card-body overflow-scroll">
+                        <table class="table table-striped table-hover text-center">
                             <thead>
                                 <tr>
                                     <th scope="col">No</th>
