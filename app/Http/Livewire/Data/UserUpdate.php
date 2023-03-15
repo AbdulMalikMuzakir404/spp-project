@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserUpdate extends Component
 {
-    public $email, $nisn, $nis, $name, $no_telp, $total_bayar, $alamat, $spp_id, $ruang_id, $nama_kelas, $kopetensi_keahlian, $siswaId;
+    public $email, $nisn, $nis, $name, $no_telp, $total_bayar, $tunggakan, $alamat, $spp_id, $ruang_id, $nama_kelas, $kopetensi_keahlian, $siswaId;
 
     public $isLoading = false;
 
@@ -55,6 +55,7 @@ class UserUpdate extends Component
             $this->alamat = $data['alamat'];
             $this->nama_kelas = $data['nama_kelas'];
             $this->kopetensi_keahlian = $data['kopetensi_keahlian'];
+            $this->tunggakan = $data['total_bayar'];
         }
     }
 
@@ -69,6 +70,7 @@ class UserUpdate extends Component
             'nama_kelas' => 'required|max:10',
             'kopetensi_keahlian' => 'required|max:20',
             'total_bayar' => 'required',
+            'tunggakan' => 'required'
         ]);
 
         if($this->total_bayar == 'tidak') {
@@ -85,6 +87,7 @@ class UserUpdate extends Component
                     'ruang_id' => $this->ruang_id,
                     'nama_kelas' => $this->nama_kelas,
                     'kopetensi_keahlian' => $this->kopetensi_keahlian,
+                    'total_bayar' => $this->tunggakan
                 ]);
 
                 DB::commit();
@@ -133,6 +136,7 @@ class UserUpdate extends Component
         $this->no_telp = null;
         $this->alamat = null;
         $this->spp_id = null;
+        $this->tunggakan = null;
 
        $this->ruang_id = null;
         $this->nama_kelas = null;

@@ -112,6 +112,21 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-sm-3">
+                                <h6 class="mb-0">Tunggakan</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary input-group">
+                                <input type="text" wire:model.lazy="tunggakan"
+                                    class="form-control @error('tunggakan') is-invalid @enderror"
+                                    placeholder="Tunggakan" required>
+                                @error('tunggakan')
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-sm-3">
                                 <h6 class="mb-0">Pebaharui data spp</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">

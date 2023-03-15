@@ -217,7 +217,8 @@
             <div>
                 <p style="font-size: 13px;">Pembuat : {{ auth()->user()->name }}</p>
                 <p style="font-size: 13px;">Date : {{ date('Y-m-d') }}</p>
-                <p style="font-size: 13px;">Sisa tunggakan Rp.{{ $sisa_tunggakan }}</p>
+                <p style="font-size: 13px;">Data Tahun : {{ $tahun }}</p>
+                <p style="font-size: 13px;">Sisa tunggakan Rp.{{ intval($sisa_tunggakan) }}</p>
             </div>
             <!-- /footer -->
     </body>
