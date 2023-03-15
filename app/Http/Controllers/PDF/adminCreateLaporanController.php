@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\pembayaran;
 use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class adminCreateLaporanController extends Controller
 {
@@ -14,18 +15,18 @@ class adminCreateLaporanController extends Controller
         date_default_timezone_set('Asia/Jakarta');
     }
 
-    public function createTransaksiLaporan($nisn, $tahun)
+    public function createTransaksiLaporan(Request $request)
     {
-        $tunggakan = User::where('nisn', $nisn)->where('level', 'siswa')->get('total_bayar')->toArray();
+        $tunggakan = User::where('nisn', $request->nisn)->where('level', 'siswa')->get('total_bayar')->toArray();
         foreach($tunggakan as $bayar){
             $sisa_tunggakan = $bayar['total_bayar'];
         }
-        $exp = explode("-", $tahun);
+        $exp = explode("-", $request->tahun);
 
         $transaksi = pembayaran::join('spps', 'pembayarans.spp_id', 'spps.id')
         ->join('users', 'pembayarans.nisn', 'users.nisn')
         ->where('pembayarans.thn_dibayar', $exp[0])
-        ->where('pembayarans.nisn', $nisn)->get();
+        ->where('pembayarans.nisn', $request->nisn)->get();
 
         // view()->share('transaksi', $transaksi);
         $pdf = PDF::loadview('PDF.admin-create-laporan', [

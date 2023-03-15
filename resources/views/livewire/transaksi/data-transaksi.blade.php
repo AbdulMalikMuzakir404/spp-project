@@ -20,7 +20,7 @@
                                             <h6 class="mb-0">NISN</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" id="nisn" wire:model.lazy="nisn"
+                                            <input type="text" id="nisn" wire:model="nisn"
                                                 class="form-control @error('nisn') is-invalid @enderror"
                                                 placeholder="NISN" required>
                                             @error('nisn')
@@ -35,9 +35,9 @@
                                             <h6 class="mb-0">Nama Siswa</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" id="nama" value="{{ $name }}" wire:model.lazy="name"
+                                            <input type="text" id="nama" wire:model="name"
                                                 class="form-control @error('name') is-invalid @enderror"
-                                                placeholder="NISN" required disabled>
+                                                placeholder="Nama Siswa" required>
                                             @error('name')
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $message }}</strong>
@@ -50,7 +50,7 @@
                                             <h6 class="mb-0">SPP ID</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <select aria-label="Default select example" id="id_spp" wire:model.lazy="spp_id"
+                                            <select aria-label="Default select example" id="id_spp" wire:model="spp_id"
                                                 class="@error('spp_id') is-invalid @enderror form-select"
                                                 value="{{ old('spp_id') }}" required>
                                                 <option selected="selected">SPP ID</option>
@@ -71,10 +71,10 @@
                                             <h6 class="mb-0">Tanggal Bayar</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <select aria-label="Default select example" wire:model.lazy="tgl_dibayar"
+                                            <select aria-label="Default select example" wire:model="tgl_dibayar"
                                                 class="@error('tgl_dibayar') is-invalid @enderror form-select"
                                                 value="{{ old('tgl_dibayar') }}" required>
-                                                <option selected="selected">Tanggal</option>
+                                                <option selected="selected" value="{{ date('d') }}">{{ date('d') }}</option>
                                                 @for ($tanggal = 1; $tanggal <= 31; $tanggal++)
                                                     <option value="{{ $tanggal }}">{{ $tanggal }}</option>
                                                 @endfor
@@ -94,10 +94,10 @@
                                             <h6 class="mb-0">Bulan Bayar</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <select aria-label="Default select example" wire:model.lazy="bln_dibayar"
+                                            <select aria-label="Default select example" wire:model="bln_dibayar"
                                                 class="@error('bln_dibayar') is-invalid @enderror form-select"
                                                 value="{{ old('bln_dibayar') }}" required>
-                                                <option selected="selected">Bulan</option>
+                                                <option selected="selected" value="{{ date('F') }}">{{ date('F') }}</option>
                                                 @php
                                                     $data = ['January', 'February', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
                                                 @endphp
@@ -117,10 +117,10 @@
                                             <h6 class="mb-0">Tahun Bayar</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <select aria-label="Default select example" wire:model.lazy="thn_dibayar"
+                                            <select aria-label="Default select example" wire:model="thn_dibayar"
                                                 class="@error('thn_dibayar') is-invalid @enderror form-select"
                                                 value="{{ old('thn_dibayar') }}" required>
-                                                <option selected="selected">Tahun</option>
+                                                <option selected="selected" value="{{ date('Y') }}">{{ date('Y') }}</option>
                                                 @for ($tahun = date('Y'); $tahun >= 2000; $tahun--)
                                                     <option value="{{ $tahun }}">{{ $tahun }}</option>
                                                 @endfor
@@ -137,9 +137,9 @@
                                             <h6 class="mb-0">Jumlah Bayar</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" id="jumlah_bayar" value="{{ $jumlah_bayar }}" wire:model.lazy="jumlah_bayar"
+                                            <input type="text" id="jumlah_bayar" wire:model="jumlah_bayar"
                                                 class="form-control @error('jumlah_bayar') is-invalid @enderror"
-                                                placeholder="Jumlah Bayar" required disabled>
+                                                placeholder="Jumlah Bayar" required>
                                             @error('jumlah_bayar')
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $message }}</strong>
@@ -183,15 +183,15 @@
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col">
-                            <select wire:model="paginate" class="form-select-sm w-auto">
+                        <div class="col-auto">
+                            <select wire:model="paginate" class="form-select w-auto">
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="15">15</option>
                             </select>
                         </div>
                         <div class="col">
-                            <select wire:model="status_pembayaran" class="form-select-sm w-auto">
+                            <select wire:model="status_pembayaran" class="form-select w-auto">
                                 <option value="1">lunas</option>
                                 <option value="0">belum lunas</option>
                             </select>

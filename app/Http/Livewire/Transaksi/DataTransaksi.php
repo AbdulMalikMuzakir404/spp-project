@@ -151,9 +151,9 @@ class DataTransaksi extends Component
             $cekNisnAndName = $name['name'];
         }
 
-        if($cekNisnAndName !== $this->name) {
-            return redirect()->route('dataTransaksi')->with('error', 'nisn and name do not match!');
-        }
+        // if($cekNisnAndName !== $this->name) {
+        //     return redirect()->route('dataTransaksi')->with('error', 'nisn and name do not match!');
+        // }
 
         $cekDatePembayaran = pembayaran::where('nama_siswa', $this->name)->where('bln_dibayar', $this->bln_dibayar)->where('thn_dibayar', $this->thn_dibayar)->get();
         if(count($cekDatePembayaran) >= 1) {

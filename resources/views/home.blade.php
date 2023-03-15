@@ -124,7 +124,6 @@
                                     <th scope="col">Created</th>
                                     <th scope="col">Updated</th>
                                     <th scope="col">Status Pembayaran</th>
-                                    <th scope="col">Cetak</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -156,9 +155,6 @@
                                                     style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Belum Lunas</button>
                                             </td>
                                         @endif
-                                        <td>
-                                            <a href="/home/home/detail-cetak/{{ $dataTransaksi->nisn }}/{{ $dataTransaksi->thn_dibayar }}" class="btn btn-sm btn-secondary"><i class="bi bi-download"></i></a>
-                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

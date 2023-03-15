@@ -67,8 +67,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/home/create-transaksi-laporan', [adminCreateLaporanController::class, 'createTransaksiLaporan'])->name('createTransaksiLaporan')->middleware('admin');
 
-        Route::get('/home/detail-cetak/{nisn}/{tahun}', [detailCetakController::class, 'showDetail'])->name('detailCetak')->middleware('pengelola');
-        Route::get('/home/transaksi-to-pdf/{nisn}/{tahun}', [adminCreateLaporanController::class, 'createTransaksiLaporan'])->name('cetakTransaksiPdf')->middleware('pengelola');
+        Route::post('/home/transaksi-to-pdf', [adminCreateLaporanController::class, 'createTransaksiLaporan'])->name('cetakTransaksiPdf')->middleware('pengelola');
 
         Route::get('/home/bayar', [bayarController::class, 'showBayar'])->name('dataBayar')->middleware('siswa');
         Route::post('/home/bayar-detail', [bayarController::class, 'bayarDetail'])->name('dataBayarDetail')->middleware('siswa');

@@ -25,15 +25,18 @@ class laporanController extends Controller
         ->whereBetween('pembayarans.created_at', [$request->dari, $request->sampai])
         ->sum('jumlah_bayar');
 
+        $dari = $request->dari;
+        $sampai = $request->sampai;
+
         // view()->share('transaksi', $transaksi);
         $pdf = PDF::loadview('PDF.admin-create-laporan-range', [
             'transaksi' => $transaksi,
-            'jumlah_bayar' => $jumlah_bayar
+            'jumlah_bayar' => $jumlah_bayar,
+            'dari' => $dari,
+            'sampai' => $sampai
         ]);
         $pdf->set_option('dpi', 100);
         //$pdf->stream();
        return $pdf->download('transaksi.pdf');
-
-        return view('PDF.admin-create-laporan', compact('transaksi', 'sisa_tunggakan'));
     }
 }

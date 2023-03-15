@@ -141,7 +141,7 @@
                     <h3>Table SPP</h3>
                     <div class="row mt-3">
                         <div class="col">
-                            <select wire:model="paginate_spp" class="form-control-sm w-auto">
+                            <select wire:model="paginate_spp" class="form-select w-auto">
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="15">15</option>
@@ -204,7 +204,7 @@
                     <h3>Table Kelas</h3>
                     <div class="row mt-3">
                         <div class="col">
-                            <select wire:model="paginate_kelas" class="form-control-sm w-auto">
+                            <select wire:model="paginate_kelas" class="form-select w-auto">
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="15">15</option>

@@ -139,8 +139,8 @@
                 <div class="card-header">
                     <h3>Table Data Siswa</h3>
                     <div class="row mt-3">
-                        <div class="col">
-                            <select wire:model="paginate" class="form-select-sm w-auto">
+                        <div class="col-auto">
+                            <select wire:model="paginate" class="form-select w-auto">
                                 <option value="5">5</option>
                                 <option value="10">10</option>
                                 <option value="15">15</option>

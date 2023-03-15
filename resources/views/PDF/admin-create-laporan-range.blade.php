@@ -139,18 +139,16 @@
 
         <!-- header -->
         <div class="text-center">
-            {{-- <img src="{{ asset('storage/profile/' . Auth::user()->photo) }}" class="img" alt="logo.png" width="90"> --}}
-            <div style="margin-left:6rem;">
-                <span class="text-header text-bold text-danger">
-                    PEMERINTAH DAERAH PROVINSI JAWA BARAT <br> DINAS PENDIDIKAN <br>
-                    <span class="size2">CABANG DINAS PENDIDIKAN WILAYAH IX</span> <br>
-                    SEKOLAH MENENGAH KEJURUAN NEGERI 1 KATAPANG <br>
-                </span>
-                <span class="text-desc">Jalan Sekolah Nomor 20 Telepon (0233) 319238<br>FAX (0233) 319238 Website <span
-                        class="underline">www.smkn1katapang-bdg.co.id</span> - Email <span
-                        class="underline">smkn1katapang@gmail.com</span> <br> Desa Ceuri Kec. Katapang Kab. Bandung
-                    45463 <br> </span>
-            </div>
+            <span class="text-header text-bold text-danger">
+                PEMERINTAH DAERAH PROVINSI JAWA BARAT <br> DINAS PENDIDIKAN <br>
+                <span class="size2">CABANG DINAS PENDIDIKAN WILAYAH IX</span> <br>
+                SEKOLAH MENENGAH KEJURUAN NEGERI 1 KATAPANG <br>
+            </span>
+            <span class="text-desc">Jalan Sekolah Nomor 20 Telepon (0233) 319238<br>FAX (0233) 319238 Website <span
+                    class="underline">www.smkn1katapang-bdg.co.id</span> - Email <span
+                    class="underline">smkn1katapang@gmail.com</span> <br> Desa Ceuri Kec. Katapang Kab. Bandung
+                45463 <br>
+            </span>
         </div>
         <div>
             <!-- /header -->
@@ -219,7 +217,7 @@
             <div>
                 <p style="font-size: 13px;">Pembuat : {{ auth()->user()->name }}</p>
                 <p style="font-size: 13px;">Date : {{ date('Y-m-d') }}</p>
-                <p style="font-size: 13px;">Income Rp.{{ $jumlah_bayar }}</p>
+                <p style="font-size: 13px;">Pemasukan Rp.{{ $jumlah_bayar . ' Dari ' . $dari . ' - ' . $sampai }}</p>
             </div>
             <!-- /footer -->
     </body>
