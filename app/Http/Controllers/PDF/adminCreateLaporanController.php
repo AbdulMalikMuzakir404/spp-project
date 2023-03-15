@@ -18,6 +18,11 @@ class adminCreateLaporanController extends Controller
 
     public function createTransaksiLaporan(Request $request)
     {
+        $request->validate([
+            'tahun' => 'required',
+            'nisn' => 'required|min:5'
+        ]);
+        
         $tunggakan = User::where('nisn', $request->nisn)->whereYear('updated_at', $request->tahun)->where('level', 'siswa')->first();
 
         if($tunggakan != null){
@@ -49,6 +54,6 @@ class adminCreateLaporanController extends Controller
         //$pdf->stream();
        return $pdf->download('transaksi.pdf');
 
-        return view('PDF.admin-create-laporan', compact('transaksi', 'sisa_tunggakan'));
+        //return view('PDF.admin-create-laporan', compact('transaksi', 'sisa_tunggakan'));
     }
 }

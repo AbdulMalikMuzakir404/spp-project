@@ -15,6 +15,11 @@ class laporanController extends Controller
 
     public function create(Request $request)
     {
+        $request->validate([
+            'dari' => 'required',
+            'sampai' => 'required'
+        ]);
+
         $transaksi = pembayaran::join('spps', 'pembayarans.spp_id', 'spps.id')
         ->join('users', 'pembayarans.nisn', 'users.nisn')
         ->whereBetween('pembayarans.created_at', [$request->dari, $request->sampai])
