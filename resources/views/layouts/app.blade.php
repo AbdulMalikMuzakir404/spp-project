@@ -221,6 +221,15 @@
                                     </p>
                                 </a>
                             </li>
+
+                            <li class="nav-item {{ Route::currentRouteName() == 'laporan' ? ' active bg-gradient-primary' : '' }}">
+                                <a href="{{ route('laporan') }}" class="nav-link">
+                                    <i class="nav-icon bi bi-calendar-week"></i>
+                                    <p>
+                                        Laporan Create
+                                    </p>
+                                </a>
+                            </li>
                         @endcan
 
 

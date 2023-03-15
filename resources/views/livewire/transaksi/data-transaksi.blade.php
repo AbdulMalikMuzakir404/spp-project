@@ -20,15 +20,9 @@
                                             <h6 class="mb-0">NISN</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <select aria-label="Default select example" wire:model.lazy="nisn"
-                                                class="@error('nisn') is-invalid @enderror form-select"
-                                                value="{{ old('nisn') }}" required>
-                                                <option selected="selected">NISN</option>
-                                                @foreach ($datas as $data)
-                                                    <option value="{{ $data->nisn }}">
-                                                        {{ $data->nisn . ' - ' . $data->name }}</option>
-                                                @endforeach
-                                            </select>
+                                            <input type="text" id="nisn" wire:model.lazy="nisn"
+                                                class="form-control @error('nisn') is-invalid @enderror"
+                                                placeholder="NISN" required>
                                             @error('nisn')
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $message }}</strong>
@@ -41,15 +35,9 @@
                                             <h6 class="mb-0">Nama Siswa</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <select aria-label="Default select example" wire:model.lazy="name"
-                                                class="@error('name') is-invalid @enderror form-select"
-                                                value="{{ old('name') }}" required>
-                                                <option selected="selected">Nama Siswa</option>
-                                                @foreach ($datas as $data)
-                                                    <option value="{{ $data->name }}">
-                                                        {{ $data->name . ' - ' . $data->nisn }}</option>
-                                                @endforeach
-                                            </select>
+                                            <input type="text" id="nama" value="{{ $name }}" wire:model.lazy="name"
+                                                class="form-control @error('name') is-invalid @enderror"
+                                                placeholder="NISN" required disabled>
                                             @error('name')
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $message }}</strong>
@@ -62,7 +50,7 @@
                                             <h6 class="mb-0">SPP ID</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <select aria-label="Default select example" wire:model.lazy="spp_id"
+                                            <select aria-label="Default select example" id="id_spp" wire:model.lazy="spp_id"
                                                 class="@error('spp_id') is-invalid @enderror form-select"
                                                 value="{{ old('spp_id') }}" required>
                                                 <option selected="selected">SPP ID</option>
@@ -149,9 +137,9 @@
                                             <h6 class="mb-0">Jumlah Bayar</h6>
                                         </div>
                                         <div class="col-sm-9 text-secondary">
-                                            <input type="text" wire:model.lazy="jumlah_bayar"
+                                            <input type="text" id="jumlah_bayar" value="{{ $jumlah_bayar }}" wire:model.lazy="jumlah_bayar"
                                                 class="form-control @error('jumlah_bayar') is-invalid @enderror"
-                                                placeholder="Jumlah Bayar" required>
+                                                placeholder="Jumlah Bayar" required disabled>
                                             @error('jumlah_bayar')
                                                 <span class="invalid-feedback">
                                                     <strong>{{ $message }}</strong>
@@ -285,3 +273,33 @@
         @endcan
     </div>
 </div>
+
+<script>
+      $(function(){
+        $('#nisn').on('blur', function(){
+          let nisn=$(this).val();
+          console.log(nisn);
+          $.ajax({
+            url:'/get_siswa/'+nisn,
+            method:'get',
+            success:function(data){
+              console.log(data);
+              $('#nama').val(data['nama']);
+            }
+          });
+        });
+        $('#id_spp').on('blur', function(){
+          const id_spp = $(this).val();
+          console.log(id_spp);
+          $.ajax({
+            url:'/get_spp/'+id_spp,
+            method:'get',
+            success:function(data){
+              console.log(data);
+              $('#jumlah_bayar').val(data['jumlah_bayar']);
+
+            }
+          });
+        });
+      });
+    </script>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Data;
 
+use Carbon\Carbon;
 use App\Models\spp;
 use App\Models\ruang;
 use Livewire\Component;
@@ -186,10 +187,11 @@ class DataCreate extends Component
         DB::beginTransaction();
 
         try {
-            ruang::create([
-                'nama_kelas' => $this->nama_kelas,
-                'kopetensi_keahlian' => $this->kopetensi_keahlian
-            ]);
+            DB::insert('CALL create_ruang(?, ?, ?, ?)', [$this->nama_kelas, $this->kopetensi_keahlian, Carbon::now(), Carbon::now()]);
+            // ruang::create([
+            //     'nama_kelas' => $this->nama_kelas,
+            //     'kopetensi_keahlian' => $this->kopetensi_keahlian
+            // ]);
 
             DB::commit();
         } catch (\Exception $e) {

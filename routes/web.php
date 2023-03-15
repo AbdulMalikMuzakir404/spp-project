@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\laporanController;
 use App\Http\Controllers\Auth\loginController;
 use App\Http\Controllers\siswa\bayarController;
 use App\Http\Controllers\Auth\registerController;
@@ -71,5 +72,11 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/home/bayar', [bayarController::class, 'showBayar'])->name('dataBayar')->middleware('siswa');
         Route::post('/home/bayar-detail', [bayarController::class, 'bayarDetail'])->name('dataBayarDetail')->middleware('siswa');
+
+        Route::get('home/laporan', [laporanController::class, 'show'])->name('laporan')->middleware('pengelola');
+        Route::post('home/laporan-create', [laporanController::class, 'create'])->name('laporanCreate')->middleware('pengelola');
     });
 });
+
+Route::get('/get_siswa/{nisn}',[transaksiController::class,'get_siswa']);
+Route::get('/get_spp/{id_spp}',[transaksiController::class,'get_spp']);

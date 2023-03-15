@@ -33,8 +33,8 @@ class adminCreateLaporanController extends Controller
             'sisa_tunggakan' => $sisa_tunggakan
         ]);
         $pdf->set_option('dpi', 100);
-        $pdf->stream();
-       //return $pdf->download('transaksi.pdf');
+        //$pdf->stream();
+       return $pdf->download('transaksi.pdf');
 
         return view('PDF.admin-create-laporan', compact('transaksi', 'sisa_tunggakan'));
     }
